@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <!--<link rel="icon" href="../../favicon.ico"/>-->
+
+        <title>Spring Boot Web Application</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/starter-template.css" rel="stylesheet" type="text/css"/>
+        <script src="/js/jquery-2.2.1.min.js" type="text/javascript"></script>
+        <script src="/bootstrap/js/bootstrap.js" type="text/javascript"></script>   
+        <script src="/js/jquery.confirm.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function () {
+                $("#simpleConfirm").confirm();
+            });
+            /*$(document).ready(function () {
+             $("#button").confirm({
+             title: "Delete confirmation",
+             text: "This is very dangerous, you shouldn't do it! Are you really really sure?",
+             confirm: function (button) {
+             alert("You just confirmed.");
+             },
+             cancel: function (button) {
+             alert("You aborted the operation.");
+             },
+             confirmButton: "Yes I am",
+             cancelButton: "No"
+             });
+             $.ajax({
+             url: "/tsijquery",
+             dataType: "json",
+             type: "GET",
+             cache: false,
+             data: "/tsijquery",
+             success: function (data) {
+             $(data).each(function (index, value) {
+             console.log("Data: " + value.nome);
+             });
+             }
+             });
+             });*/
+        </script> 
+    </head>
+    <body> 
+        <a id="simpleConfirm" href="" class="btn btn-primary">Click me</a>
+        <!--<div>
+      
+            <div class="form-control" id="dialogUp" title="Excluir Produto">
+                <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;">
+                    </span>Gostaria realmente de excluir este item?</p>
+            </div>
+        </div>-->               
+
+        <p>If you click on me, I will disappear.</p>
+        <p>Click me away!</p>
+        <p>Click me too!</p>
+        <script>
+
+            /*
+             $.ajax({
+             url: "/tsijquery",
+             dataType: 'json',
+             type: 'GET',
+             cache: false,
+             success: function (data) {
+             $(data.tsijquery).each(function(index, value){
+             console.log(value);
+             });
+             }
+             });
+             $(document).ready(function () {
+             $("#dialogUp").dialog({
+             resizable: false,
+             height: 140,
+             modal: false,
+             buttons: {
+             "Delete all items": function () {
+             dialog.dialog("close");
+             },
+             Cancel: function () {
+             dialog.dialog("close");
+             }
+             }
+             });
+             $("#modalUp").button().on("click", function () {
+             $("#dialogUp").dialog("open");
+             });
+             }); */
+        </script>
+    </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" 
+      layout:decorator="template"> 
+
+    <div  layout:fragment="content">
+        <div id="editDialog" class="modal-dialog">
+            <p>Eu modal estou aqui funcionando</p>		
+        </div>
+        <div class="container-fluid">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Novo cadastro de produto</button>
+                <a id="btnEdit">Deletar</a>
+                <table class="table table-striped" id="posts_list">
+                    <thead>
+                        <th>Código</th>
+                        <th>Produto</th>
+                        <th>Descrição</th>
+                        <th>Excluir</th>
+                        <th>Alterar</th>
+                    </thead>
+                    <tbody>
+                        <tr data-th-each="post : ${posts}">
+                            <td data-th-text="${post.id}"></td>
+                            <td data-th-text="${post.nome}"></td>
+                            <td data-th-text="${post.descricao}"></td>
+                            <td>                           
+                                <a th:href="@{'/{id}/delete'(id=${post.id})}" class="delete">    
+                                    <span class="fa-stack">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </span>
+                                </a>                            
+                            </td>
+                            <td>
+                                <a th:href="@{'/{id}/edit'(id=${post.id})}" class="delete">    
+                                    <span class="fa-stack">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>           
+                    </tbody>
+                </table>          
+
+                <form method="post" th:action="@{/new}"  th:object="${produto}">
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Cadastrar Nova Impressora</h4>
+                                </div>
+                                <div class="modal-body">
+
+                                    <div>
+                                        <label for="produto">Produto:</label>
+                                        <input type="text" th:field="*{nome}" id="produto"/>
+                                    </div>
+                                    <div class="alert" th:if="${#fields.hasErrors('nome')}">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <p th:errors="*{nome}"> </p>
+                                    </div>
+                                    <div>
+                                        <label for="descricao">Descrição:</label>                                
+                                        <input type="text" th:field="*{descricao}" id="descricao"/>
+                                    </div>
+                                    <div th:if="${#fields.hasErrors('descricao')}" class="alert">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <p th:errors="*{descricao}"></p>
+                                    </div>
+                                    <div>
+                                        <label for="email">Email:</label>
+                                        <input type="email" th:field="*{email}" id="email" placeholder="exemplo@email.com"/>
+                                        <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>                        
+                                    </div>  
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button data-target="#myModal" type="submit" id="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <select th:field="*{produto}">
+                    <option th:each="produto : ${listarProduto}"
+                            th:value="${produto}"
+                            th:text="${produto.id} + '-' + ${produto.nome}"></option>
+                </select>
+                <table class="table table-striped" id="posts_list" th:unless="${#lists.isEmpty(listarProduto)}">
+                    <thead>
+                        <th>Código</th>
+                        <th>Produto</th>
+                        <th>Descrição</th>
+                        <th>Excluir</th>
+                        <th>Alterar</th>
+                    </thead>
+                    <tbody>
+                        <tr data-th-each="post : ${listarProduto}">
+                            <td data-th-text="${post.id}"></td>
+                            <td data-th-text="${post.nome}"></td>
+                            <td data-th-text="${post.descricao}"></td>
+                            <td>                           
+                                <a  id="delete1" th:href="@{'/{id}/delete'(id=${post.id})}" class="delete">    
+                                    <span class="fa-stack">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </span>
+                                </a>                            
+                            </td>
+                            <td>
+                                <a th:href="@{'/{id}/edit'(id=${post.id})}" class="delete">    
+                                    <span class="fa-stack">
+                                        <i class="glyphicon glyphicon-pencil"></i>
+                                    </span>
+                                </a>
+                            </td>
+                        </tr>           
+                    </tbody>
+                </table>          
+
+            </div>
+        </div>
+        <form method="post" action="/salvar"  th:object="${produto}">
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Cadastrar Nova Impressora</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <th:block th:if="${#fields.hasErrors('*')}">
+                                <div id="contetErrors" class="warning" >
+                                    <button type="button" class="close" data-dismiss="warning">×</button>
+                                    <span th:each="err : ${#fields.hasErrors('*')}" th:text="${err}"></span>
+                                </div>
+                            </th:block>
+                            <div>
+                                <label for="produto">Produto:</label>
+                                <input type="text" th:field="*{nome}" id="produto"/>
+                            </div>
+
+                            <div>
+                                <label for="descricao">Descrição:</label>                                
+                                <input type="text" th:field="*{descricao}" id="descricao"/>
+                            </div>
+
+                            <div>
+                                <label for="email">Email:</label>
+                                <input type="email" th:field="*{email}" id="email" placeholder="exemplo@email.com"/>                                              
+                            </div>  
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button data-target="#myModal" type="submit" id="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>  
+</html>

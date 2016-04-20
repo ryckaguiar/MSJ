@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cadastrar Impressora</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <script src="/js/jquery-2.2.1.min.js" type="text/javascript"></script>
+        <script src="/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+        <div>
+            <!-- Button to trigger modal -->
+            <a href="#myModal" role="button" class="btn" data-toggle="modal">Executar modal de demo</a>
+
+            <!-- Modal -->
+            <form method="post" action="#" th:action="@{/cadastrar}" th:object="${produto}">
+                <div id="myModal" class="modal hide fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-header">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true" role="dialog">×</button>
+                        <h3 id="myModalLabel">Modal header</h3>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="conteiner">                                            
+                            <div>
+                                <div>
+                                    <label for="produto">Produto:</label>
+                                    <input type="text" th:field="*{nome}" id="produto"/>
+                                </div>
+                                <div th:fragment="modalUpdate">
+                                    <div class="alert" th:if="${#fields.hasErrors('nome')}">
+                                        <button type="button" class="close" data-dismiss="alert">×</button>
+                                        <p th:errors="*{nome}"> </p>
+                                    </div>
+                                </div>
+                            </div>                        
+                        </div>                      
+                        <div>
+                            <div>
+                                <label for="descricao">Descrição:</label>                                
+                                <input type="text" th:field="*{descricao}" id="descricao"/>
+                            </div>
+                            <div th:if="${#fields.hasErrors('descricao')}" class="alert">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <p th:errors="*{descricao}"></p>
+                            </div>
+
+                        </div>                       
+                        <div>
+                            <label for="email">Email:</label>
+                            <input type="text" th:field="*{email}" id="email" placeholder="exemplo@email.com"/>
+                            <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>                        
+                        </div>                        
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+                        <button type="submit" id="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </div>
+
+            </form>	
+        </div>
+
+    </body>
+</html>

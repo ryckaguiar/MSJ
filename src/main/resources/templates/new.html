@@ -1,0 +1,45 @@
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="template">
+    <div layout:fragment="content">
+        <div class="container">
+
+            <form method="post" action="#" th:action="@{/save}" th:object="${produto}">               
+                <div class="conteiner">
+                    <input type="hidden" th:field="*{id}" th:text="*{id}"/>                    
+                    <div class="col-md-12">
+                        <div class="col-md-3" th:class="form-group" th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+                            <label for="nome" class="col-sm-2 control-label">Nome Produto: <span class="required">*</span></label>
+                            <div class="col-md-10">
+                                <input th:field="*{nome}" type="text" class="form-control" placeholder="Nome do Produto"/>
+                                <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" th:class="help-block">Title Errors</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-offset-1">
+                            <li class="alert-warning" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></li>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="col-md-12">
+                        <div class="col-lg-3">
+                            <label for="descricao">Descrição:</label><br/>
+                            <input type="text" th:field="*{descricao}" id="descricao"/>
+                        </div>
+                        <div class="col-md-4 col-lg-offset-1">
+                            <li class="alert-warning" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></li>
+                        </div>
+
+                    </div>
+                    <br/>
+                    <div class="info">
+                        <label for="email">Email:</label><br/>
+                        <input type="email" th:field="*{email}" placeholder="exemplo@email.com"/>
+                        <li class="alert-warning" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>                        
+                    </div><br/>
+                    <button type="submit" id="submit" class="btn btn-primary">Submit</button>	
+                </div>
+            </form>			
+        </div>
+    </div>				
+</html>

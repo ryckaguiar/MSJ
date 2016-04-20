@@ -1,0 +1,33 @@
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="template">
+    <div layout:fragment="content">
+        <div class="container">
+            <form method="post" action="/editar" role="form" name="update_form" id="update_form">
+                <div class="form-group">
+                    <input type="hidden" class="" name="post_id" th:value="${post.id}" th:text="${post.id}"/>
+                    <br/>
+
+                    <label for="nome" class="col-sm-2 control-label">Nome Produto: <span class="required">*</span></label>                        
+                    <div class="col-md-10">
+                        <input th:value="${post.nome}" type="text" placeholder="Nome do Produto" name="nome" id="nome"/>                            
+                    </div>                    
+                    <br/><br/>
+                    <label for="descricao" >Descrição do Produto:</label><br/>
+                    <input th:value="${post.descricao}" type="text" placeholder="Descrição do Produto" name="descricao" id="descricao"/>
+                    
+                    <br/><br/>
+                    
+                    <label for="email" >Descrição do Produto:</label><br/>
+                    <input th:value="${post.email}" type="text" placeholder="fulano@email.com" name="email" id="email"/>
+
+                    <br/><br/>
+
+
+                    <button type="submit" id="submit" class="btn btn-primary">Submit</button>					
+                </div>
+            </form>			
+        </div>
+    </div>				
+</html>
