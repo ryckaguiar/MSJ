@@ -23,7 +23,7 @@ public class StartApplication implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         
-        System.out.println("io.msj.StartApplication.run()");
+        //System.out.println("io.msj.StartApplication.run()");
         /*    Calendar c = Calendar.getInstance();
         c.getTime();
        for (int i = 0; i < 10; i++) {

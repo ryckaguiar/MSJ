@@ -37,7 +37,7 @@ and open the template in the editor.
                                 </a>                            
                             </td>
                             <td>
-                                <a th:href="@{'/{id}/edit'(id=${post.id})}" class="delete">    
+                                <a th:href="@{'/edit/{id}'(id=${post.id})}" class="delete">    
                                     <span class="fa-stack">
                                         <i class="glyphicon glyphicon-pencil"></i>
                                     </span>
@@ -117,7 +117,7 @@ and open the template in the editor.
                                 </a>                            
                             </td>
                             <td>
-                                <a th:href="@{'/{id}/edit'(id=${post.id})}" class="delete">    
+                                <a th:href="@{'/edit/{id}'(id=${post.id})}" class="delete">    
                                     <span class="fa-stack">
                                         <i class="glyphicon glyphicon-pencil"></i>
                                     </span>

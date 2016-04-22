@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class FieldValidator {
 
-    private ProdutoDao prodDao;
-
+    private ProdutoDao prodDao;   
+    
     @Autowired
     public FieldValidator(ProdutoDao prodDao) {
         this.prodDao = prodDao;
@@ -29,21 +29,16 @@ public class FieldValidator {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String checkFieldInfo(@Valid Produto produto, BindingResult br, @RequestParam("id") Long id, @RequestParam(name = "nome") String nome,
+    public String checkFieldInfo(@Valid Produto produto, BindingResult br, @RequestParam(value = "id") Long id, @RequestParam(name = "nome") String nome,
             @RequestParam(name = "descricao") String descricao, @RequestParam(name = "email") String email) {
-
-        if (br.hasErrors()) {
-            System.out.println(id);
-            return "/postForm";
-        } else {/*
-        if ( produto.getId() == null) {
-            prodDao.save(produto);
-            return "redirect:/edit/" + produto.getId();
-        }  else {
+              
+        if (br.hasErrors()) {                                
+            return "/postForm";            
+        } else {           
             produto = prodDao.findOne(id);
             produto.setEmail(email);
             produto.setNome(nome);
-            produto.setDescricao(descricao);*/
+            produto.setDescricao(descricao);
             prodDao.save(produto);
             return "redirect:/edit/" + produto.getId();
         }
@@ -57,8 +52,8 @@ public class FieldValidator {
         return "/new";
     }*/
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable Long id, Model model) {
-        model.addAttribute("produto", prodDao.findOne(id));
+    public String edit(@PathVariable Long id, Model model) {       
+        model.addAttribute("produto", prodDao.findOne(id));      
         return "/postForm";
     }
     /*

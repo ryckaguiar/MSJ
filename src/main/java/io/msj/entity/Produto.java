@@ -43,6 +43,10 @@ public class Produto implements Serializable {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -66,12 +70,12 @@ public class Produto implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
-   
+
     /* @Override
     public String toString() {
         return "Person(Name: " + this.nome + ", Age: " + this.descricao + ", Email: " + this.email + ")";
-    }*/
-
+    }
+     */
     @Override
     public int hashCode() {
         int hash = 3;
