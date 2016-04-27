@@ -2,6 +2,7 @@ package io.msj.bean;
 
 import io.msj.dao.ProdutoDao;
 import io.msj.entity.Produto;
+import java.lang.reflect.Method;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,13 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class FieldValidator {
 
-    private ProdutoDao prodDao;   
-    
+    private ProdutoDao prodDao;
+
     @Autowired
     public FieldValidator(ProdutoDao prodDao) {
         this.prodDao = prodDao;
@@ -29,31 +29,50 @@ public class FieldValidator {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String checkFieldInfo(@Valid Produto produto, BindingResult br, @RequestParam(value = "id") Long id, @RequestParam(name = "nome") String nome,
-            @RequestParam(name = "descricao") String descricao, @RequestParam(name = "email") String email) {
-              
-        if (br.hasErrors()) {                                
-            return "/postForm";            
-        } else {           
-            produto = prodDao.findOne(id);
+    public String checkFieldInfo(@Valid Produto produto, BindingResult br/*, @RequestParam(value = "id") Long id, @RequestParam(name = "nome") String nome,
+            @RequestParam(name = "descricao") String descricao, @RequestParam(name = "email") String email*/) {
+
+        if (br.hasErrors()) {
+            return "/postForm";
+        } else {
+            /* produto = prodDao.findOne(id);
             produto.setEmail(email);
             produto.setNome(nome);
-            produto.setDescricao(descricao);
+            produto.setDescricao(descricao);*/
             prodDao.save(produto);
             return "redirect:/edit/" + produto.getId();
         }
 
     }
 
+    @RequestMapping("/login")
+    public String LoginUser() {
+        return "/login";
+    }
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public String Logout() {
+        return "/logout";
+    }
 
-    /*@RequestMapping(value = "/new/{id}", method = RequestMethod.GET)
+    /*
+    @RequestMapping("/logout")
+    public String LogoutUser() {
+        return "/login";
+    }
+    @RequestMapping(value = "/new/{id}", method = RequestMethod.GET)
     public String newId(@PathVariable("id") Long id, Model model) {
         model.addAttribute("produto", prodDao.findOne(id));
         return "/new";
-    }*/
+    }
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String LoginUserPost() {
+        return "/login";
+    }
+     */
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public String edit(@PathVariable Long id, Model model) {       
-        model.addAttribute("produto", prodDao.findOne(id));      
+    public String edit(@PathVariable Long id, Model model) {
+        model.addAttribute("produto", prodDao.findOne(id));
         return "/postForm";
     }
     /*

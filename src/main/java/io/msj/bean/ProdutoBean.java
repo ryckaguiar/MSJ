@@ -20,7 +20,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.mvc.annotation.ModelAndViewResolver;
 
 @Controller
-@RequestMapping("/")
 public class ProdutoBean extends WebMvcConfigurerAdapter {
 
     @Autowired
@@ -62,7 +61,7 @@ public class ProdutoBean extends WebMvcConfigurerAdapter {
         
     }
      */
-    /*@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+ /*@RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
     public String edit(@PathVariable long id, Model model) {
         model.addAttribute("post", prodDao.findOne(id));
         return "/edit";
@@ -79,13 +78,11 @@ public class ProdutoBean extends WebMvcConfigurerAdapter {
         return new ModelAndView("redirect:/listar");
     }
 
-    /*@RequestMapping("/login")
-    public String tjquery() {
-        return "/login";
-    }
+    
+    
     @RequestMapping(value = "/tsijquery", method = RequestMethod.GET)
     @ResponseBody()
     public List<Produto> tsjquery() {
         return (List<Produto>) prodDao.findAll();
-    }*/
+    }*/    
 }

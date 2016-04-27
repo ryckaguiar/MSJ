@@ -1,3 +1,10 @@
 body {
     padding-top: 70px;
 }
+footer{
+    position: fixed;
+    align-content: flex-end;
+    height: 100px;
+    bottom: 0;
+    width: 100%;
+}

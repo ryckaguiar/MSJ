@@ -60,9 +60,12 @@
                             </li>
                             <li>
                                 <a href="#">Link2</a>                                
-                            </li>  
+                            </li>                              
                             <li>
-                                <a href="#">Link2</a>                                
+                                <form th:action="@{/logout}" method="POST">
+                                    <input type="submit" value="Logout" ></input>
+                                    <a th:href="@{/logout}">Logout</a>                                
+                                </form>
                             </li>                              
                         </ul>
                     </div>
@@ -72,20 +75,7 @@
 
         <div class="container">
 
-            <div layout:fragment="content">
-                <!-- ============================================================================ -->
-                <!-- This content is only used for static prototyping purposes (natural templates)-->
-                <!-- and is therefore entirely optional.                                          -->
-                <!-- ============================================================================ -->
-                <h1>Static content for prototyping purposes only</h1>
-
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
-                    Phasellus et placerat elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
-                    Phasellus et placerat elit.
-                </p>
+            <div layout:fragment="content">                
 
             </div>
 
