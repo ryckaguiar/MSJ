@@ -15,7 +15,7 @@ public class User implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)    
     private Long id;
     
-    @Column(length = 70, nullable = false, unique = true)
+    @Column(name = "username" ,length = 70, nullable = false, unique = true)
     private String userName;
     
     @Column(length = 8, nullable = false)
@@ -64,10 +64,11 @@ public class User implements Serializable{
             return false;
         }
         final User other = (User) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
+    }
+     @Override
+    public String toString() {
+        return "(Name: " + this.userName + ", Age: " + this.id + ", Email: " + this.password + ")";
     }
     
     

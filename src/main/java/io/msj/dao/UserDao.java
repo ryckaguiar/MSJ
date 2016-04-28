@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserDao extends CrudRepository<User, Long>{
     
-    //@Query("SELECT user_name, password  FROM `user` WHERE user_name=?")
-    public List<String> userName(String userName);
+    @Query("SELECT u FROM User u WHERE u.userName=?1")
+    public List<String> findByName(String userName);
     
 }

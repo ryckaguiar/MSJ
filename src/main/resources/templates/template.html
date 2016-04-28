@@ -56,19 +56,20 @@
                     <div class="collapse navbar-collapse" id="nav-collapse1">
                         <ul class="nav navbar-nav">
                             <li>
-                                <a href="/new">Cadastrar <span class="sr-only">(current)</span></a>                                
+                                <a th:href="@{/create}">Cadastrar <span class="sr-only">(current)</span></a>                                
                             </li>
                             <li>
                                 <a href="#">Link2</a>                                
                             </li>                              
                             <li>
                                 <form th:action="@{/logout}" method="POST">
-                                    <input type="submit" value="Logout" ></input>
-                                    <a th:href="@{/logout}">Logout</a>                                
+                                    <input class="btn-link" type="submit" value="Logout" ></input>                                                                  
                                 </form>
                             </li>                              
                         </ul>
+                        <button type="button" class="btn btn-default navbar-btn navbar-right">Sign in</button>
                     </div>
+
                 </div>
             </nav>
         </header>
@@ -82,7 +83,7 @@
         </div>
         <!-- /.container -->
 
-        <footer class="panel-footer">
+        <footer class="panel-footer navbar-fixed-bottom">
             <div class="container">
                 <p th:utext="#{template.welcome}">Welcome to the my first page</p>
                 <p class="">Ricardo Aguiar.</p>

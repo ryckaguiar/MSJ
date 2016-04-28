@@ -2,7 +2,6 @@ package io.msj.bean;
 
 import io.msj.dao.ProdutoDao;
 import io.msj.entity.Produto;
-import java.lang.reflect.Method;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
