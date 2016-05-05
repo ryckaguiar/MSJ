@@ -12,39 +12,9 @@ and open the template in the editor.
         <div class="container-fluid">
             <div class="col-md-6">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Novo cadastro de produto</button>
-                <a id="btnEdit">Deletar</a>
-                <table class="table table-striped" id="posts_list">
-                    <thead>
-                        <th>Código</th>
-                        <th>Produto</th>
-                        <th>Descrição</th>
-                        <th>Excluir</th>
-                        <th>Alterar</th>
-                    </thead>
-                    <tbody>
-                        <tr data-th-each="post : ${posts}">
-                            <td data-th-text="${post.id}"></td>
-                            <td data-th-text="${post.nome}"></td>
-                            <td data-th-text="${post.descricao}"></td>
-                            <td>                           
-                                <a th:href="@{'/{id}/delete'(id=${post.id})}" class="delete">    
-                                    <span class="fa-stack">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </span>
-                                </a>                            
-                            </td>
-                            <td>
-                                <a th:href="@{'/edit/{id}'(id=${post.id})}" class="delete">    
-                                    <span class="fa-stack">
-                                        <i class="glyphicon glyphicon-pencil"></i>
-                                    </span>
-                                </a>
-                            </td>
-                        </tr>           
-                    </tbody>
-                </table>          
+                <a id="btnEdit">Deletar</a>                
 
-                <form method="post" th:action="@{/new}"  th:object="${produto}">
+                <form method="post" th:action="@{/save}"  th:object="${produto}">
                     <div class="modal fade" id="myModal">
                         <div class="modal-dialog">
                             <!-- Modal content-->

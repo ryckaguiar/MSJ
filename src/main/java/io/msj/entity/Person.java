@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -32,6 +33,9 @@ public class Person{
     
     @Temporal(TemporalType.DATE)
     private Calendar birthdate;
+    
+    @OneToOne
+    private User user;
 
     public Person(String name, String lastName, int age, String sex, boolean deficient, Calendar birthdate) {
         this.name = name;
@@ -100,6 +104,14 @@ public class Person{
 
     public void setBirthdate(Calendar birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
 }

@@ -2,6 +2,9 @@ package io.msj.bean;
 
 import io.msj.dao.ProdutoDao;
 import io.msj.entity.Produto;
+import io.msj.entity.UserRole;
+import io.msj.repository.UserRepository;
+import io.msj.repository.UserRolesRepository;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,9 +19,12 @@ public class FieldValidator {
 
     private ProdutoDao prodDao;
 
+    private UserRolesRepository userRolesRepository;
+
     @Autowired
-    public FieldValidator(ProdutoDao prodDao) {
+    public FieldValidator(ProdutoDao prodDao, UserRolesRepository userRolesRepository) {
         this.prodDao = prodDao;
+        this.userRolesRepository = userRolesRepository;
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -48,7 +54,7 @@ public class FieldValidator {
     public String LoginUser() {
         return "/login";
     }
-    
+
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public String Logout() {
         return "/logout";
@@ -73,6 +79,15 @@ public class FieldValidator {
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("produto", prodDao.findOne(id));
         return "/postForm";
+    }
+
+    @RequestMapping(value = "/createRoleUser", method = RequestMethod.POST)
+    public String createRoleUser(@Valid UserRole userRole, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/createRoleUser";
+        }
+        userRolesRepository.save(userRole);
+        return "/listar";
     }
     /*
     @RequestMapping(value = "/save", method = RequestMethod.POST)

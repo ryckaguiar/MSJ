@@ -2,39 +2,70 @@ package io.msj.entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class User implements Serializable{
-    
+@Table(name = "users")
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)    
-    private Long id;
-    
-    @Column(name = "username" ,length = 70, nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userid")
+    private Long userId;
+
+    @Column(name = "username")
     private String userName;
-    
-    @Column(length = 8, nullable = false)
+
+    @Column(name = "password")
     private String password;
 
-    public Long getId() {
-        return id;
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "enabled")
+    private int enabled;
+
+    public User() {
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public User(User user) {
+        this.userId = user.userId;
+        this.userName = user.userName;
+        this.email = user.email;
+        this.password = user.password;
+        this.enabled = user.enabled;
     }
 
-    public String getUserName() {
-        return userName;
+    public int getEnabled() {
+        return enabled;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setEnabled(int enabled) {
+        this.enabled = enabled;
+    }
+
+    public Long getUserid() {
+        return userId;
+    }
+
+    public void setUserid(Long userid) {
+        this.userId = userid;
     }
 
     public String getPassword() {
@@ -45,31 +76,20 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        return hash;
+    public String getEmail() {
+        return email;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final User other = (User) obj;
-        return Objects.equals(this.id, other.id);
+    public void setEmail(String email) {
+        this.email = email;
     }
-     @Override
-    public String toString() {
-        return "(Name: " + this.userName + ", Age: " + this.id + ", Email: " + this.password + ")";
+
+    public String getUserName() {
+        return userName;
     }
-    
-    
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
 }

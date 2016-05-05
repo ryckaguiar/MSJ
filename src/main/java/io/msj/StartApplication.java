@@ -2,8 +2,6 @@ package io.msj;
 
 import io.msj.dao.PersonDao;
 import io.msj.dao.ProdutoDao;
-import io.msj.dao.UserDao;
-import io.msj.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,8 +15,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 public class StartApplication implements CommandLineRunner {
 
     
-    @Autowired
-    private UserDao userDao;
+   // @Autowired
+    //private UserDao userDao;
     /*@Autowired
     private ProdutoDao prodDAO;
 
@@ -31,7 +29,7 @@ public class StartApplication implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        String a = "a";
+        /*String a = "a";
         
         System.out.println(userDao.findByName(a));
          /*
