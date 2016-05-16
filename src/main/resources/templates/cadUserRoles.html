@@ -1,0 +1,43 @@
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    layout:decorator="template">
+    <div layout:fragment="content">        
+
+        <form method="post" th:action="@{/createRoleUser}" th:object="${userrole}">               
+            <!--<div><input type="hidden"  th:field="*{userroleid}"/></div> -->
+            <div class="conteiner">
+                <div class="container-fluid">
+                    <div  th:class="form-group" th:classappend="${#fields.hasErrors('userid')}? 'has-error'">
+                        <label for="userid" class="control-label">Usuário: <span class="required">*</span></label>                            
+                        <select  th:field="*{userid}"  class="form-control">
+                            <option label="Selecione um Usuário" value="">                             
+                            </option>
+                            <option th:each="user : ${listarUser}"
+                                    th:value="${user.userid}"
+                                    th:text="${user.userid} + '  -  ' + ${user.userName}">
+                            </option>
+                        </select>                        
+                        <!--<input th:field="*{userid}" type="text" class="form-control" placeholder="Usuário"/> -->
+                        <span th:if="${#fields.hasErrors('userid')}" th:errors="*{userid}" th:class="help-block">Title Errors</span>
+                    </div>
+                    <div  th:class="form-group" th:classappend="${#fields.hasErrors('role')}? 'has-error'">                            
+                        <label for="role" class="control-label">Permissão: <span class="required">*</span></label>
+                        <input th:field="*{role}" type="text" class="form-control" placeholder="Tipo do usuário"/>
+                        <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}" th:class="help-block">Title Errors</span>
+                    </div>
+                    <!--<div class="col-md-3" th:class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
+                        <label for="email" class="control-label">Email: <span class="required">*</span></label>
+                        <input th:field="*{email}" type="text" class="form-control" placeholder="exemplo@email.com"/>
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="help-block">Title Errors</span>
+                    </div> -->                      
+                </div>
+            </div>
+            <br/>
+            <div class="conteiner">
+                <button type="submit" id="submit" class="btn btn-primary">Submit</button>	
+            </div>        
+        </form> 
+    </div>
+</html>
+

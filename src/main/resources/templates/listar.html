@@ -12,46 +12,56 @@ and open the template in the editor.
         <div class="container-fluid">
             <div class="col-md-6">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Novo cadastro de produto</button>
-                <a id="btnEdit">Deletar</a>                
+                <a id="btnEdit">Deletar</a> 
+
 
                 <form method="post" th:action="@{/save}"  th:object="${produto}">
                     <div class="modal fade" id="myModal">
                         <div class="modal-dialog">
                             <!-- Modal content-->
-                            <div class="modal-content">
+                            <div class="modal-content" >
 
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">Cadastrar Nova Impressora</h4>
                                 </div>
-                                <div class="modal-body">
 
-                                    <div>
-                                        <label for="produto">Produto:</label>
-                                        <input type="text" th:field="*{nome}" id="produto"/>
-                                    </div>
-                                    <div class="alert" th:if="${#fields.hasErrors('nome')}">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <p th:errors="*{nome}"> </p>
-                                    </div>
-                                    <div>
-                                        <label for="descricao">Descrição:</label>                                
-                                        <input type="text" th:field="*{descricao}" id="descricao"/>
-                                    </div>
-                                    <div th:if="${#fields.hasErrors('descricao')}" class="alert">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <p th:errors="*{descricao}"></p>
-                                    </div>
-                                    <div>
-                                        <label for="email">Email:</label>
-                                        <input type="email" th:field="*{email}" id="email" placeholder="exemplo@email.com"/>
-                                        <li th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></li>                        
-                                    </div>  
+                                <div class="modal-body">                                    
+
+                                    <!--<th:block th:fragment="validation">
+                                        <form method="post" th:action="@{/save}" th:object="${produto}">               
+                                            <div><input type="hidden"  th:field="*{id}"/></div>
+                                            <div class="conteiner">
+                                                <div class="container-fluid">
+
+                                                    <div  th:class="form-group" th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+                                                        <label for="nome" class="control-label">Produto: <span class="required">*</span></label>                            
+                                                        <input th:field="*{nome}" type="text" class="form-control" placeholder="Nome do Produto"/>
+                                                        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" th:class="help-block">Title Errors</span>
+                                                    </div>
+                                                    <div  th:class="form-group" th:classappend="${#fields.hasErrors('descricao')}? 'has-error'">                            
+                                                        <label for="descricao" class="control-label">Descrição: <span class="required">*</span></label>
+                                                        <input th:field="*{descricao}" type="text" class="form-control" placeholder="Descrição do Produto"/>
+                                                        <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" th:class="help-block">Title Errors</span>
+                                                    </div>
+                                                    <div class="col-md-3" th:class="form-group" th:classappend="${#fields.hasErrors('email')}? 'has-error'">
+                                                        <label for="email" class="control-label">Email: <span class="required">*</span></label>
+                                                        <input th:field="*{email}" type="text" class="form-control" placeholder="exemplo@email.com"/>
+                                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="help-block">Title Errors</span>
+                                                    </div>   
+
+                                                </div>
+
+                                            </div>
+                                            <br/>
+                                            <div class="conteiner">
+                                                <button type="submit" id="submit" class="btn btn-primary">Submit</button>	
+                                            </div>        
+                                        </form>
+                                    </th:block>
+                                    -->
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button data-target="#myModal" type="submit" id="submit" class="btn btn-primary">Salvar</button>
-                                </div>
+
                             </div>
                         </div>
                     </div>

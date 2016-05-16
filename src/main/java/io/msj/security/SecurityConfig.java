@@ -26,7 +26,7 @@ public class SecurityConfig extends
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/js/**", "/bootstrap/**", "/css/**", "/templates/**").permitAll()
+                .antMatchers("/js/**", "/bootstrap/**", "/css/**", "/templates/**", "/userInfo", "/currentUser", "/error").permitAll()
                 .antMatchers("/listar").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
