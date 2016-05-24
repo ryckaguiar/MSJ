@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.spring4.view.AjaxThymeleafView;
+import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.spring4.view.AjaxThymeleafViewResolver;
 
 @Controller
@@ -47,13 +49,12 @@ public class FieldValidator {
         model.addAttribute("produto", new Produto());
         return "/postForm";
     }
-       
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     //@ResponseBody
     public String checkFieldInfo(@Valid Produto produto, BindingResult br/*, @RequestParam(value = "id") Long id, @RequestParam(name = "nome") String nome,
             @RequestParam(name = "descricao") String descricao, @RequestParam(name = "email") String email*/) {
-            
+
         if (br.hasErrors()) {
             return "/postForm";
         } else {
@@ -143,6 +144,7 @@ public class FieldValidator {
         userRolesRepository.save(userRole);
         return "redirect:/listar";
     }
+
     /*
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveNew(@Valid Produto produto, BindingResult br, @RequestParam("id") long id, @RequestParam("nome") String nome, @RequestParam("email") String email,
@@ -184,5 +186,15 @@ public class FieldValidator {
 
     }
      */
+    @RequestMapping("/search")
+    public String search() {        
+        return "search";
+    }
+
+    @RequestMapping(value = "/search/{nome}", method = RequestMethod.GET)
+    public ModelAndView search(@PathVariable String nome, ModelMap model) {
+        model.put("search", prodDao.findByName(nome));
+        return new ModelAndView("table", model);
+    }
 
 }

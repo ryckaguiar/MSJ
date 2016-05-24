@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TableSearch</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/starter-template.css" rel="stylesheet" type="text/css"/>
+        <script src="/js/jquery-2.2.1.min.js" type="text/javascript"></script>
+        <script src="/bootstrap/js/bootstrap.js" type="text/javascript"></script>
+        <script src="/js/jquery.confirm.js" type="text/javascript"></script>
+    </head>
+    <body>        
+        <div id="content">
+            <input type="text" id="nome" name="nome"/>
+        </div>
+        <div id="div02">
+
+        </div>        
+        <div id="info">
+
+        </div>
+        <script th:inline="javascript">
+            $(document).ready(function (e) {
+
+                $('#nome').keyup(function () {
+                    var filter = $('#nome').val();
+                    if (filter.length > 0) {
+                         tableLoader(filter);
+                    }
+                });
+
+            });
+            function tableLoader(filter) {
+                var string = filter.replace(" ","%20");
+                var url = "/search/" + string;
+                
+                $('#div02').load(url, function (response, status, xhr) {
+                    if (status === "error") {
+                        var msg = "Sorry but there was an error: ";
+                        $("#info").html(msg + xhr.status + " " + xhr.statusText);
+                    }
+                });
+                return false;
+            }
+
+        </script>
+    </body>
+</html>

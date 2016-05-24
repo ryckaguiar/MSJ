@@ -44,6 +44,14 @@ public class ProdutoBean extends WebMvcConfigurerAdapter {
         prodDao.delete(id);
         return new ModelAndView("redirect:/listar");
     }
+    @RequestMapping(value = "/saveAjax", method = RequestMethod.POST)
+    @ResponseBody
+    public Produto produtoAjax(@Valid Produto produto){
+             
+        prodDao.save(produto);
+        
+        return produto;
+    }
 
     /*
     @RequestMapping(value = "/new", method = RequestMethod.GET)

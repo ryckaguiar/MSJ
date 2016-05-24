@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<table id="table1">
+    <thead>
+    <th>Código</th>
+    <th>Produto</th>
+    <th>Descrição</th>            
+</thead>
+<tbody>
+    <tr data-th-each="search : ${search}">
+        <td data-th-text="${search.id}"></td>
+        <td data-th-text="${search.nome}"></td>
+        <td data-th-text="${search.descricao}"></td>           
+    </tr>           
+</tbody>
+</table>    
+

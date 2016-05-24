@@ -22,12 +22,12 @@
         <script th:inline="javascript">
 
             $(document).ready(function () {
-                $("#delete1").confirm({
+                $('#delete1').confirm({
                     text: "Deseja realmente deletar o item selecionado?",
                     title: "Deletar item selecionado"
                 });
             });
-            (function () {
+            $(function() {
                 $("#btnEdit").click(function () {
                     $("#editDialog").dialog({
                         modal: true,
@@ -53,7 +53,14 @@
                  });*/
 
             });
-            
+            $(document).ready(function () {
+                $('#form01').submit(function () {
+
+                    $('content').load("/postForm");
+
+                });
+            });
+
 
         </script>        
     </head>

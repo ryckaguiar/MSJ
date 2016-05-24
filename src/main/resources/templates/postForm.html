@@ -1,10 +1,8 @@
 <html
     xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    layout:decorator="template">
-    <div layout:fragment="content">        
-
-        <form method="post" th:action="@{/save}" th:object="${produto}">               
+    xmlns:th="http://www.thymeleaf.org">             
+    <div id="content">
+        <form id="form01" method="post" th:action="@{/save}" th:object="${produto}">               
             <div><input type="hidden"  th:field="*{id}"/></div>
             <div class="conteiner">
                 <div class="container-fluid">
@@ -22,17 +20,19 @@
                         <label for="email" class="control-label">Email: <span class="required">*</span></label>
                         <input th:field="*{email}" type="text" class="form-control" placeholder="exemplo@email.com"/>
                         <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:class="help-block">Title Errors</span>
-                    </div>
-                    <div>
-                        <span>[[${produto.nome}]]</span>
-                    </div>                         
+                    </div>                                              
                 </div>
             </div>
             <br/>
             <div class="conteiner" sec:authorize="hasRole'ROLE_ADMIN'">
                 <button type="submit" id="submit" class="btn btn-primary">Submit</button>	
             </div>        
-        </form> 
+        </form>
     </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        /*]]>*/
+    </script>
 </html>
 

@@ -25,6 +25,7 @@ public class SecurityConfig extends
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/js/**", "/bootstrap/**", "/css/**", "/templates/**", "/userInfo", "/currentUser", "/error").permitAll()
                 .antMatchers("/listar").hasRole("ADMIN")

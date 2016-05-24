@@ -19,15 +19,16 @@ and open the template in the editor.
                         <h4 class="modal-title">Cadastrar Nova Impressora</h4>
                     </div>
 
-                    <div class="modal-body">                           
-                        <th:block th:fragment="validation">
+                    <div id="content10" class="modal-body"> 
+                        <div th:include="postForm" th:remove="tag"></div>
+                        <!--<th:block th:fragment="validation">
                             <form method="post" th:action="@{/save}" th:object="${produto}">               
                                 <div><input type="hidden"  th:field="*{id}"/></div>
                                 <div class="conteiner">
                                     <div class="container-fluid">
                                         <div  th:class="form-group" th:classappend="${#fields.hasErrors('nome')} ? 'has-error'">
                                             <label for="nome" class="control-label">Produto: <span class="required">*</span></label>                            
-                                            <input th:field="*{nome}" type="text" required="required" class="form-control" placeholder="Nome do Produto"/>
+                                            <input th:field="*{nome}" type="text" class="form-control" placeholder="Nome do Produto"/>
                                             <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" th:class="help-block">Title Errors</span>
                                         </div>
                                         <div  th:class="form-group" th:classappend="${#fields.hasErrors('descricao')}? 'has-error'">                            
@@ -47,17 +48,21 @@ and open the template in the editor.
                                     <button type="submit" id="submit" class="btn btn-primary">Submit</button>	
                                 </div>
                             </form>
-                        </th:block> 
+                        </th:block>-->
                     </div>
                 </div>
             </div>
         </div>              
         <script th:inline="javascript">
-            $(document).ready(function () {
-                $("#submit").click(function () {
-                    console.log(/*[[(${#fields.hasErrors})]]*/"ok");
-                });
-            });
+            /*<![CDATA[*/
+                 $(document).ready(function (){
+                     $("#submit").on("click", function (){
+                         $('#content10').load("/create", function (response, status, xhr){
+                             
+                         });
+                     });
+                 });
+            /*]]>*/
         </script>
     </div>
 
