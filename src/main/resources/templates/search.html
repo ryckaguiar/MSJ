@@ -33,7 +33,7 @@
 
             });
             function tableLoader(filter) {
-                var string = filter.replace(" ","%20");
+                var string = filter.replace(/ /g,"%20");
                 var url = "/search/" + string;
                 
                 $('#div02').load(url, function (response, status, xhr) {
