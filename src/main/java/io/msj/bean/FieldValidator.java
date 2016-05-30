@@ -6,13 +6,27 @@ import io.msj.entity.User;
 import io.msj.entity.UserRole;
 import io.msj.repository.UserRepository;
 import io.msj.repository.UserRolesRepository;
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +40,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.thymeleaf.spring4.view.AjaxThymeleafView;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.ResourceBundleViewResolver;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
 import org.thymeleaf.spring4.view.AjaxThymeleafViewResolver;
+import sun.security.pkcs11.wrapper.Functions;
 
 @Controller
 public class FieldValidator {
@@ -187,7 +206,7 @@ public class FieldValidator {
     }
      */
     @RequestMapping("/search")
-    public String search() {        
+    public String search() {
         return "search";
     }
 
@@ -196,5 +215,28 @@ public class FieldValidator {
         model.put("search", prodDao.findByName(nome));
         return new ModelAndView("table", model);
     }
+//######################PDF REPORT#########################################
 
+    @RequestMapping(value = "/pdf", method = RequestMethod.GET, produces = "aplication/pdf")
+    public ModelAndView getPdf(ModelAndView modelAndView) throws Exception {
+        
+
+        JasperReport jasperReport = JasperCompileManager
+                .compileReport("/home/ricardo/NetBeansProjects/MSJ/src/main/resources/reports/report2.jrxml");
+
+        JRBeanCollectionDataSource jrBean = new JRBeanCollectionDataSource((Collection<?>) prodDao.findAll(), false);
+
+        Map<String, Object> parameters = new HashMap<String, Object>();
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrBean);
+
+        File outDir = new File("/home/ricardo/jasperoutput");
+        outDir.mkdirs();
+
+        JasperExportManager.exportReportToPdfFile(jasperPrint,
+                "/home/ricardo/jasperoutput/StyledTextReport.pdf");
+       
+        return new ModelAndView("reportsimplepdfjasperreport", parameters);
+
+    }
 }

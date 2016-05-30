@@ -2,7 +2,7 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:th="http://www.thymeleaf.org">             
     <div id="content">
-        <form id="form01" method="post" th:action="@{/save}" th:object="${produto}">               
+        <form id="form01" method="POST" th:action="@{/save}" th:object="${produto}">               
             <div><input type="hidden"  th:field="*{id}"/></div>
             <div class="conteiner">
                 <div class="container-fluid">
@@ -31,7 +31,28 @@
     </div>
     <script th:inline="javascript">
         /*<![CDATA[*/
+        $(document).ready(function () {
+            $('#form01').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function (data, textStatus, jqXHR) {
+                        $('#div03').html(data);
+                        console.log(data);
+                        //console.log(textStatus);
+                        //console.log(jqXHR);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                    }
 
+                });
+                //$('#div03').load("/postForm");
+            });
+
+        });
         /*]]>*/
     </script>
 </html>

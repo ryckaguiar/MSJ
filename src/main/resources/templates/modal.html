@@ -19,8 +19,12 @@ and open the template in the editor.
                         <h4 class="modal-title">Cadastrar Nova Impressora</h4>
                     </div>
 
-                    <div id="content10" class="modal-body"> 
-                        <div th:include="postForm" th:remove="tag"></div>
+                    <div  class="modal-body"> 
+                        <div id="div03">
+                            <div th:include="postForm">
+
+                            </div>
+                        </div>
                         <!--<th:block th:fragment="validation">
                             <form method="post" th:action="@{/save}" th:object="${produto}">               
                                 <div><input type="hidden"  th:field="*{id}"/></div>
@@ -53,17 +57,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>              
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-                 $(document).ready(function (){
-                     $("#submit").on("click", function (){
-                         $('#content10').load("/create", function (response, status, xhr){
-                             
-                         });
-                     });
-                 });
-            /*]]>*/
-        </script>
+        
     </div>
 
 </html>
