@@ -2,7 +2,7 @@ describe aluno
 /*select A.idade, A.name, C.class_name from aluno as A join classe_aluno as CA on id = aluno_id join classe as C where CA.classe_id = C.id
 
 /*INSERT INTO user_roles (`role`, userid) VALUES ('ADMIN','1')
-/*insert into users (email, enabled, password, username)  values ('d@d.com', true, '123', 'a')
+insert into users (email, enabled, password, username)  values ('d@d.com', true, '123', 'a')
 
 
 /*INSERT INTO user_roles (`role`, userid) VALUES ('ADMIN','1')
