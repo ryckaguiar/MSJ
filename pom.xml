@@ -9,12 +9,11 @@
     <packaging>jar</packaging>
 
     <name>MSJ</name>
-    <description>WebProjectMSJ</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.3.3.RELEASE</version>
+        <version>1.4.0.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->        
     </parent>
    
@@ -77,12 +76,24 @@
             <artifactId>jasperreports</artifactId>
             <version>6.2.2</version>
         </dependency>
-       <!--<dependency>
+        <!--<dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
             <version>1.0.2</version>
         </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext-xtra</artifactId>
+            <version>5.5.9</version>
+        </dependency>
+    
     </dependencies>
+    
 	
     <build>
         <plugins>

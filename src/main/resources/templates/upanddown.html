@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="template">
+    <div layout:fragment="content">
+
+        <form method="POST" enctype="multipart/form-data" th:action="@{/upanddown}">
+            <div id="content">
+                <input type="text" name="name"/>
+                <input type="file" name="file"/>
+                <button type="submit">UpLoad</button>
+            </div>
+            <div id="div02">
+
+            </div>        
+            <div id="info">
+                <ul th:each="file : ${files}">
+                    <li th:text="${file}"></li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</html>

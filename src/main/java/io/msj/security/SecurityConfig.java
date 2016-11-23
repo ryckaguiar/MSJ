@@ -28,7 +28,7 @@ public class SecurityConfig extends
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/js/**", "/bootstrap/**", "/css/**", "/templates/**", "/userInfo", "/currentUser", "/error").permitAll()
-                .antMatchers("/listar").hasRole("ADMIN")
+                //.antMatchers("/listar").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

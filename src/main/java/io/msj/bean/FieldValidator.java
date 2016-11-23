@@ -1,5 +1,11 @@
 package io.msj.bean;
 
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Table;
+import com.lowagie.text.pdf.PdfEFStream;
+import com.lowagie.text.pdf.PdfWriter;
 import io.msj.dao.ProdutoDao;
 import io.msj.entity.Produto;
 import io.msj.entity.User;
@@ -7,48 +13,55 @@ import io.msj.entity.UserRole;
 import io.msj.repository.UserRepository;
 import io.msj.repository.UserRolesRepository;
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import javax.validation.Valid;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.repo.JasperDesignReportResource;
+import net.sf.jasperreports.view.JasperViewer;
+import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.thymeleaf.spring4.view.AjaxThymeleafView;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.ResourceBundleViewResolver;
-import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
+import org.springframework.web.servlet.mvc.annotation.ModelAndViewResolver;
+import org.springframework.web.servlet.view.document.AbstractPdfView;
 import org.springframework.web.servlet.view.jasperreports.JasperReportsPdfView;
-import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
-import org.thymeleaf.spring4.view.AjaxThymeleafViewResolver;
-import sun.security.pkcs11.wrapper.Functions;
 
 @Controller
-public class FieldValidator {
+public class FieldValidator extends AbstractPdfView {
 
     private ProdutoDao prodDao;
 
@@ -217,26 +230,125 @@ public class FieldValidator {
     }
 //######################PDF REPORT#########################################
 
-    @RequestMapping(value = "/pdf", method = RequestMethod.GET, produces = "aplication/pdf")
-    public ModelAndView getPdf(ModelAndView modelAndView) throws Exception {
+    @RequestMapping(value = "/pdf", method = RequestMethod.GET)
+    public ModelAndView pdfGenerator(HttpServletRequest request,
+   HttpServletResponse response) throws IOException {
+
         
+      /*  String nameAch;
+        nameAch = "testeItext" + ".pdf";
+        String pathFiles = System.getProperty("user.dir") + "/src/main/resources/arquivos/" + nameAch;
+        final ServletContext servletContext = request.getSession().getServletContext();
+        System.out.println(servletContext);
+        final File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+        System.out.println(tempDirectory.getAbsolutePath());
+        //final String temperotyFilePath = tempDirectory.getAbsolutePath();
+
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "attachment; filename=" + nameAch);
+
+        try {
+            InputStream inputStream = new FileInputStream(pathFiles);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            baos.write(inputStream);
+            OutputStream outputStream = response.getOutputStream();
+            baos.writeTo(outputStream);
+            return new ModelAndView("pdf");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+        return new ModelAndView("pdfView");
+
+        //ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        /*
+        Document document = new Document();
+        try {
+            //PdfWriter.getInstance(document, new FileOutputStream(pathFiles));
+            //document.open();
+            
+            document.add(new Paragraph("Teste 1"));
+            
+        } catch (DocumentException e) {
+            e.getMessage();
+        }
+        //document.close();
+        
+       return new ModelAndView("redirect:upanddown");
+
+        /*
+        String url = System.getProperty("catalina.home") + "/reports/report2.jrxml";
+        System.out.println(url);
+        //String pathContext = context.System.out.println(pathContext);
+        //String realPathJasper = this.getClass().getResource("report2.jrxml").getPath();
+        InputStream inputJrxml = new FileInputStream("/home/ricardo/NetBeansProjects/MSJ/src/main/resources/reports/report2.jrxml");
+
+        //JRDataSource jrDataSource = (JRDataSource)  prodDao.findAll();
+        JRBeanCollectionDataSource jrDataSource = new JRBeanCollectionDataSource((Collection<?>) prodDao.findAll(), false);
+       // modelMap.addAttribute("format", "pdf");
+        modelMap.addAttribute("datasource", jrDataSource);
+        //Map<String, Object> parameters = new HashMap<>();
 
         JasperReport jasperReport = JasperCompileManager
-                .compileReport("/home/ricardo/NetBeansProjects/MSJ/src/main/resources/reports/report2.jrxml");
+                .compileReport(inputJrxml);
+        
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrDataSource);
+        
 
-        JRBeanCollectionDataSource jrBean = new JRBeanCollectionDataSource((Collection<?>) prodDao.findAll(), false);
+        //JasperExportManager.exportReportToPdfFile(jasperPrint, "/reports/repor2.pdf");        
+        
+        JasperReportsPdfView jrpv = new JasperReportsPdfView();
+        jrpv.setUrl(url);
+        jrpv.setReportDataKey("datasource");      
+        
+        return new ModelAndView(jrpv, modelMap);
 
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        //JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, jrBean);
+        //JasperViewer jv = new JasperViewer(jasperPrint);
+        //jv.setVisible(true);
+        //File outDir = new File("/home/ricardo/jasperoutput");
+        //outDir.mkdirs();
+        //JasperExportManager.exportReportToPdfFile(jasperPrint,
+        //      "/home/ricardo/jasperoutput/StyledTextReport.pdf");
+        //java.net.URL url = this.getClass().getResource("/reports/report2.jrxml");
+        //JasperExportManager.exportReportToPdf(jasperPrint);
+        //JasperReportsPdfView jrpv = new JasperReportsPdfView();
+        //jrpv.setUrl("/home/ricardo/NetBeansProjects/MSJ/src/main/resources/reports/report2.jrxml");
+        //jrpv.render(modelMap, request, response);
+        //return new ModelAndView("", modelMap);*/
+    }
 
-        File outDir = new File("/home/ricardo/jasperoutput");
-        outDir.mkdirs();
+    /*@Bean(name = "multiReport")
+    public JasperReportsMultiFormatView jasperRMF() {
+        JasperReportsMultiFormatView jrmfv = new JasperReportsMultiFormatView();
+        jrmfv.setUrl("classpath:/reports/report2.xhtml");
+        jrmfv.setFormatKey("format");
+        jrmfv.setReportDataKey("datasource");
+        return jrmfv;
+    }*/
+    @RequestMapping(value = "/pdf1", method = RequestMethod.GET, consumes = "application/pdf")
+    @Override
+    protected void buildPdfDocument(Map<String, Object> map, Document dcmnt, PdfWriter writer, HttpServletRequest hsr, HttpServletResponse hsr1) throws Exception {
 
-        JasperExportManager.exportReportToPdfFile(jasperPrint,
-                "/home/ricardo/jasperoutput/StyledTextReport.pdf");
-       
-        return new ModelAndView("reportsimplepdfjasperreport", parameters);
+
+        Map<String, String> revenueData = new HashMap<String, String>();
+        revenueData.put("1/20/2010", "$100,000");
+        revenueData.put("1/21/2010", "$200,000");
+        revenueData.put("1/22/2010", "$300,000");
+        revenueData.put("1/23/2010", "$400,000");
+        revenueData.put("1/24/2010", "$500,000");
+
+        Table table = new Table(2);
+        table.addCell("Month");
+        table.addCell("Revenue");
+
+        for (Map.Entry<String, String> entry : revenueData.entrySet()) {
+            table.addCell(entry.getKey());
+            table.addCell(entry.getValue());
+        }
+
+        dcmnt.add(table);
 
     }
 }
