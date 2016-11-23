@@ -8,14 +8,13 @@ import io.msj.repository.ClasseRepository;
 import java.util.HashSet;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //@EntityScan(basePackages = "entity")
 //@EnableJpaRepositories(basePackages = "entity")
 @SpringBootApplication
-public class StartApplication implements CommandLineRunner {
+public class StartApplication{
 
     // @Autowired
     //private UserDao userDao;
@@ -34,8 +33,7 @@ public class StartApplication implements CommandLineRunner {
         SpringApplication.run(StartApplication.class, args);
     }
 
-    @Override
-    public void run(String... strings) throws Exception {
+   
 
         /*Set<Aluno> aluno;
         Classe classe;
@@ -74,5 +72,5 @@ public class StartApplication implements CommandLineRunner {
             prodDAO.save(new Produto("HP LJ 180" + i, "RH" + i, ""));
             personDao.save(new Person("Cliente", "Sobrenome", 20+i, "Masc", true, c));
         }*/
-    }
+    
 }
