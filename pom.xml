@@ -75,7 +75,7 @@
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
             <version>6.2.2</version>
-        </dependency>
+        </dependency>        
         <!--<dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
@@ -90,6 +90,10 @@
             <groupId>com.itextpdf</groupId>
             <artifactId>itext-xtra</artifactId>
             <version>5.5.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>            
         </dependency>
     
     </dependencies>
